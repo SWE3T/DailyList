@@ -1,5 +1,9 @@
 # dailylist
 
+## Based on
+- Prototype: https://www.figma.com/file/6mSBvaez4N4Fp0aY1THdJ5/Daily-List?node-id=0%3A1
+
+
 ## Project setup
 ```
 npm install
