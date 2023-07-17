@@ -85,4 +85,8 @@ export default {
 .music-icon {
   padding-right: 6px;
 }
+
+.mountain-icon {
+  padding: 0 3px 6px 0;
+}
 </style>
