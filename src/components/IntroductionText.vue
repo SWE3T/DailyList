@@ -1,7 +1,6 @@
 <template>
   <h1>{{ greating }}, {{ userName }}</h1>
-  
-  <div>
+  <div class="quote-wrapper">
     "{{quote}}"
     <br>
     -{{author ?? "Unknown"}}
@@ -42,5 +41,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .quote-wrapper {
+    max-width: 40%;
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+</style>
 
