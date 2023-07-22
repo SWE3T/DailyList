@@ -1,11 +1,17 @@
 <template>
   <div class="wrapper">
    <div class="list-box">
-      <img class="svg-icon mountain-icon" src="../assets/icons/Mountains.svg" alt="Toggle landscape">
       <div class="inner-shadow"></div>
-      <div>Today's tasks</div>
+      <div class="list-title">Today's tasks</div>
       <hr>
-      <div class="control-landscape"></div>
+
+      <div id="list-items">
+        <li v-for="list in lists" :key="list.id">
+          <span class="title" v-bind:class="{completed: list.isComplete}">{{list.title}}</span>
+        </li>
+      </div>
+
+      <input type="text" id="task-name" placeholder="task..." onsubmit="addNewTodo">
     </div>
   </div>
 </template>
@@ -14,8 +20,23 @@
 export default {
   name: 'TaskList',
   props: {
-    msg: String
-  }
+    msg: String,
+    todos: Array
+  },
+  methods: {
+    addNewTodo() {
+      const newTodos =
+        [...this.todos, 
+          {
+            id: this.todos.lengh, 
+            text: document.getElementById('task-name').value,
+            completed: false 
+          }
+       ];
+      this.$emit('update-todos', newTodos);
+    }
+  },
+
 }
 </script>
 
@@ -27,6 +48,8 @@ export default {
 }
 
 .inner-shadow {
+  pointer-events: none;
+
   width: 100%;
   height: 100%;
 
@@ -42,14 +65,18 @@ export default {
 }
 
 .list-box {
-  display: flex;
   justify-content: center;
   align-items: center;
-
-  min-height: 40vw;
-
+  min-height: 50vh;
   border: 2px solid #FCFCF3;
   filter: drop-shadow(0 0 2px #FCFCF3);
   border-radius: 50%;
 }
+
+.list-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 2.5rem 0 2rem 0;
+}
+
 </style>

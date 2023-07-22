@@ -24,7 +24,11 @@ export default {
     data() {
         return {
             username: "Bruno",
+            todos: [],
         };
+    },
+    updateTodos(newTodos) {
+      this.todos = newTodos;
     }
 };
 </script>
@@ -39,13 +43,13 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 hr {
   width: 80%;
   margin: 0 auto;
-  border: 1px solid #000;
+  border: 1px solid #C5C5C5;
 }
 
 .components {
