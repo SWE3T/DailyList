@@ -12,6 +12,7 @@
           :class="{ selected: index === selectedIndex }"
         >
           <span class="todo-item">{{ todo.text }}</span>
+          <span id="todo-state" :class="{ completed: todo.completed }" @click="toggleCompleteTodo"></span>
         </li>
       </div>
 
@@ -60,6 +61,17 @@ export default {
       }, 250);
     },
 
+    toggleCompleteTodo(event) {
+      const todoIndex = event.target.parentElement.dataset.index;
+      const isCompleted = event.target.classList.contains("completed");
+
+      const updatedTodos = this.todos;
+      
+      updatedTodos[todoIndex].completed = !isCompleted;
+
+      this.$emit("update-todos", updatedTodos);
+    },
+    
     scrollToListEnd() {
       const container = this.$refs.todosContainer;
       const lastTodo = container.querySelector("li:last-child");
@@ -110,7 +122,6 @@ export default {
       listItems.forEach((item) => item.classList.remove("selected"));
 
       if (newIndex !== null) {
-        console.log(listItems, newIndex);
         listItems[newIndex]?.classList.add("selected");
         setTimeout(() => {
           document.querySelector(".selected").scrollIntoView({ behavior: "smooth", block: "end" })
@@ -164,6 +175,10 @@ export default {
   text-decoration: underline #000000;
 }
 
+.completed {
+  text-decoration: line-through;
+}
+
 .todo-item {
   text-decoration: underline #00000000;
   transition: all 2s;
@@ -178,6 +193,21 @@ export default {
 #list-items li {
   padding: 4px 0;
 }
+
+#todo-state {
+  margin-left: 8px;
+}
+
+#todo-state:before {
+  content: "⛔";
+  color: #ff0000;
+}
+
+#todo-state:before .completed {
+  content: "✅";
+  color: #00ff00;
+}
+
 
 ::-webkit-scrollbar {
   width: 7px;
