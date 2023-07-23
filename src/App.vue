@@ -5,7 +5,7 @@
     <div class="components">
       <ControlPanel />
       <IntroductionText :userName="username" />
-      <TaskList />
+      <TaskList :todos="todos" @update-todos="updateTodos" />
     </div>
 </template>
 
@@ -27,9 +27,11 @@ export default {
             todos: [],
         };
     },
-    updateTodos(newTodos) {
-      this.todos = newTodos;
-    }
+    methods: {
+      updateTodos(newTodos) {
+        this.todos = newTodos;
+      }
+    },
 };
 </script>
 
