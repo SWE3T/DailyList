@@ -3,7 +3,7 @@
   <div class="quote-wrapper">
     "{{quote}}"
     <br>
-    -{{author ?? "Unknown"}}
+    -{{author}}
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
       
       const randomIndex = Math.floor(Math.random() * (data.length - 1)) + 1;
       this.quote = data[randomIndex].text;
-      this.author = data[randomIndex].author;
+      this.author = data[randomIndex].author.replace(', type.fit', '') ?? 'Unknown';
     } catch (error) {
       return 'Error';
     }
