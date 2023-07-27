@@ -9,10 +9,11 @@
         <li
           v-for="(todo, index) in todos"
           :key="todo.id"
-          :class="{ selected: index === selectedIndex }"
+          :class="{ selected: index === selectedIndex, completed: todo.completed}"
         >
-          <span class="todo-item">{{ todo.text }}</span>
-          <span id="todo-state" :class="{ completed: todo.completed }" @click="toggleCompleteTodo"></span>
+          <span class="todo-item" @click="toggleCompleteTodo(todo, index)">
+            {{ todo.text }}
+          </span>
         </li>
       </div>
 
@@ -61,9 +62,9 @@ export default {
       }, 250);
     },
 
-    toggleCompleteTodo(event) {
-      const todoIndex = event.target.parentElement.dataset.index;
-      const isCompleted = event.target.classList.contains("completed");
+    toggleCompleteTodo(todo, index) {
+      const todoIndex = index;
+      const isCompleted = todo.completed;
 
       const updatedTodos = this.todos;
       
@@ -175,6 +176,11 @@ export default {
   text-decoration: underline #000000;
 }
 
+.selected.completed > .todo-item {
+  background-color: #ffcbad57;
+  transition: all 0.2s;
+}
+
 .completed {
   text-decoration: line-through;
 }
@@ -185,6 +191,23 @@ export default {
   word-wrap: break-word;
 }
 
+.todo-item {
+  margin-right: 8px;
+}
+
+.completed .todo-item:after {
+  content: "⛔";
+  color: #ff0000;
+}
+
+.todo-item:after {
+  padding-left: 8px;
+  font-size: 16px;
+  content: "✅";
+  text-decoration: none !important;
+  color: #00ff00;
+}
+
 #list-items {
   max-height: 55vh;
   overflow-y: scroll;
@@ -193,21 +216,6 @@ export default {
 #list-items li {
   padding: 4px 0;
 }
-
-#todo-state {
-  margin-left: 8px;
-}
-
-#todo-state:before {
-  content: "⛔";
-  color: #ff0000;
-}
-
-#todo-state:before .completed {
-  content: "✅";
-  color: #00ff00;
-}
-
 
 ::-webkit-scrollbar {
   width: 7px;
