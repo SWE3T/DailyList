@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     addNewTodo() {
+      if (!document.getElementById("task-name").value) return;
       const newTodos = [
         ...this.todos,
         {
@@ -135,7 +136,8 @@ export default {
 
 <style scoped>
 .wrapper {
-  width: 40%;
+  min-width: 100%;
+  
   margin: 0 auto;
   font-size: 1.5rem;
 }
@@ -158,9 +160,11 @@ export default {
 }
 
 .list-box {
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
   min-height: 50vh;
+  max-width: 650px;
   filter: drop-shadow(0 0 2px #fcfcf3);
   border-radius: 48px;
   overflow: hidden;
