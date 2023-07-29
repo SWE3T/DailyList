@@ -177,7 +177,12 @@ export default {
 }
 
 .selected {
-  text-decoration: underline #000000;
+  text-decoration: none;
+}
+
+.selected:not(::after) {
+  text-decoration: underline #000000 !important;
+  animation: strike 0.25s linear;
 }
 
 .selected.completed > .todo-item {
@@ -185,8 +190,13 @@ export default {
   transition: all 0.2s;
 }
 
-.completed {
+.completed:not(::after) {
   text-decoration: line-through;
+  animation: strike 0.25s linear;
+}
+
+.completed:not(::after) {
+  text-decoration: none !important;
 }
 
 .todo-item {
@@ -195,13 +205,9 @@ export default {
   word-wrap: break-word;
 }
 
-.todo-item {
-  margin-right: 8px;
-}
-
 .completed .todo-item:after {
   content: "⛔";
-  color: #ff0000;
+  color: red;
 }
 
 .todo-item:after {
@@ -209,7 +215,7 @@ export default {
   font-size: 16px;
   content: "✅";
   text-decoration: none !important;
-  color: #00ff00;
+  color: green;
 }
 
 #list-items {
@@ -232,4 +238,11 @@ export default {
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
+
+
+@keyframes strike {
+  from { text-decoration-color: transparent; }
+  to { text-decoration-color: #000; }
+}
+
 </style>
