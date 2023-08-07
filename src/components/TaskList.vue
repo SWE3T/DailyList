@@ -68,7 +68,6 @@ export default {
       const isCompleted = todo.completed;
 
       const updatedTodos = this.todos;
-      
       updatedTodos[todoIndex].completed = !isCompleted;
 
       this.$emit("update-todos", updatedTodos);
@@ -87,6 +86,17 @@ export default {
 
       const input = document.getElementById("task-name");
       const listItems = document.querySelectorAll("#list-items li");
+
+      if (input != document.activeElement) {
+        const isTooglingCompleteness = event.code === "Space" || event.key === "Enter";
+        if (isTooglingCompleteness) {
+          event.preventDefault();
+          const todo = this.todos[this.selectedIndex];
+
+          this.toggleCompleteTodo(todo, this.selectedIndex);
+          return;
+        }
+      }
 
       if (event.key === "Enter") return;
       if (event.key === "Escape" || event.key === "Tab") {
@@ -191,12 +201,7 @@ export default {
 
 .completed {
   text-decoration: line-through;
-  /* animation: strike 0.25s linear; */
 }
-
-/* .completed:not(::after) {
-  text-decoration: none !important;
-} */
 
 .todo-item {
   text-decoration: underline #00000000;
