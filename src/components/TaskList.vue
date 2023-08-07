@@ -126,7 +126,7 @@ export default {
       if (newIndex !== null) {
         listItems[newIndex]?.classList.add("selected");
         setTimeout(() => {
-          document.querySelector(".selected").scrollIntoView({ behavior: "smooth", block: "end" })
+          document.querySelector(".selected")?.scrollIntoView({ behavior: "smooth", block: "end" })
         }, 100)
       }
     },
@@ -176,13 +176,12 @@ export default {
   padding: 2.5rem 0 2rem 0;
 }
 
-.selected {
-  text-decoration: none;
+.selected > .todo-item > span {
+  text-decoration: underline !important;
 }
 
-.selected:not(::after) {
-  text-decoration: underline #000000 !important;
-  animation: strike 0.25s linear;
+.selected > .todo-item {
+  text-decoration: underline !important;
 }
 
 .selected.completed > .todo-item {
@@ -190,32 +189,32 @@ export default {
   transition: all 0.2s;
 }
 
-.completed:not(::after) {
+.completed {
   text-decoration: line-through;
-  animation: strike 0.25s linear;
+  /* animation: strike 0.25s linear; */
 }
 
-.completed:not(::after) {
+/* .completed:not(::after) {
   text-decoration: none !important;
-}
+} */
 
 .todo-item {
   text-decoration: underline #00000000;
-  transition: all 2s;
   word-wrap: break-word;
+  animation: strike 0.25s linear;
+  transition: all 0.5s;
 }
 
 .completed .todo-item:after {
+  display: inline-block;
   content: "⛔";
-  color: red;
 }
 
 .todo-item:after {
+  display: inline-block;
   padding-left: 8px;
   font-size: 16px;
   content: "✅";
-  text-decoration: none !important;
-  color: green;
 }
 
 #list-items {
@@ -241,8 +240,12 @@ export default {
 
 
 @keyframes strike {
-  from { text-decoration-color: transparent; }
-  to { text-decoration-color: #000; }
+  from { 
+    text-decoration-color: transparent; 
+  }
+  to { 
+    text-decoration-color: #000; 
+  }
 }
 
 </style>
