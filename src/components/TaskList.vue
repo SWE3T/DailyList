@@ -24,6 +24,11 @@
         @keydown.enter="addNewTodo"
       />
     </div>
+
+    <div class="icon-button" @click="clearTodos()">
+      <img class="erase-icon" src="../assets/icons/Erase.svg">
+    </div>
+
   </div>
 </template>
 
@@ -61,6 +66,17 @@ export default {
       setTimeout(() => {
         this.scrollToListEnd();
       }, 250);
+    },
+   
+    clearTodos() {
+      const emptyArray = [];
+
+      const input = document.getElementById("task-name");
+
+      input.value = "";
+      input.focus();
+
+      this.$emit("update-todos", emptyArray);
     },
 
     toggleCompleteTodo(todo, index) {
@@ -220,6 +236,23 @@ export default {
   padding-left: 8px;
   font-size: 16px;
   content: "✅";
+}
+
+.erase-icon {
+  cursor: pointer;
+}
+
+.icon-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 65px;
+  height: 65px;
+
+  top: -65px;
+  right: calc(-100vh - 50px);
 }
 
 #list-items {

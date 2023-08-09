@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// <button @click="$emit('toggle-music')">Toggle Music</button>
 export default {
   name: "ControlPanel",
   props: {
